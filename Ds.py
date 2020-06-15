@@ -25,4 +25,4 @@ def CalculDS(AB,AC):
 A = [1, 2, 0]
 B = [3, 1, 2]
 C = CalculDS(A,B)
-print(C)
+#print(C)
