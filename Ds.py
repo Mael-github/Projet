@@ -22,7 +22,7 @@ def CalculDS(AB,AC):
     return Ds
 
 #test
-A = [1, 2, 0]
-B = [3, 1, 2]
-C = CalculDS(A,B)
+AB = [1, 2, 0]
+AC = [3, 1, 2]
+C = CalculDS(AB,AC)
 #print(C)
