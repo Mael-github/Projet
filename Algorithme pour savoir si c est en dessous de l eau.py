@@ -1,3 +1,4 @@
+i = [[0,0,0],[0,0,0],[0,0,0]]
 if i[0][2] < 0 and i[1][2] < 0 and i[2][2] < 0 :
     #on applique la poussée d'archimède
 elif i[0][2] > 0 and i[1][2] > 0 and i[2][2] > 0 :
