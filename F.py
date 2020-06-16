@@ -19,7 +19,6 @@ def CalculF(Coordonee):
 
 your_mesh = mesh.Mesh.from_file('Rectangular_HULL.stl')
 list = your_mesh.vectors
-print(list)
 PousseArchimede = [0,0,0]
 for i in list:
     x=CalculF(i)
