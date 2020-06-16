@@ -1,4 +1,4 @@
-def Dichotomie():
+def Dichotomie(): #on l'utilisera pas en fonction mais plus dans une boucle while
     ForcePoids = 21435434524543252 #constant
     PousseeArchimede = 234392489 #variable, on appelle la fonction en boucle
     epsilon = 3

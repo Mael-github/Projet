@@ -17,13 +17,25 @@ def CalculF(Coordonee):
         F[i] = F[i]*X
     return F
 
+#Permet de translater le bateau selon Z
+def TranslationSelonZ (choixtransla):
+    for i in your_mesh.vectors:
+        for y in i:
+            y[2] = y[2] - choixtransla
+
 your_mesh = mesh.Mesh.from_file('Rectangular_HULL.stl')
 list = your_mesh.vectors
 PousseArchimede = [0,0,0]
+#On effectue un translation de 5m
+TranslationSelonZ(5)
 for i in list:
-    x=CalculF(i)
-    for n in range(len(PousseArchimede)) :
-        PousseArchimede[n] = PousseArchimede[n] + x[n]
+    if i[0][2] < 0 and i[1][2] < 0 and i[2][2] < 0 :
+        x=CalculF(i)
+        for n in range(len(PousseArchimede)) :
+            PousseArchimede[n] = PousseArchimede[n] + x[n]
+    elif i[0][2] < 0 or i[1][2] < 0 or i[2][2] < 0 :
+        print("facettes à moitié immergée")
+        #cas a traiter
 print(PousseArchimede)
 
 
