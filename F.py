@@ -26,8 +26,8 @@ def TranslationSelonZ (choixtransla):
 your_mesh = mesh.Mesh.from_file('Rectangular_HULL.stl')
 list = your_mesh.vectors
 PousseArchimede = [0,0,0]
-#On effectue un translation de 5m
-TranslationSelonZ(5)
+#On effectue un translation de X m
+TranslationSelonZ(0.1)
 for i in list:
     if i[0][2] < 0 and i[1][2] < 0 and i[2][2] < 0 :
         x=CalculF(i)
@@ -38,4 +38,15 @@ for i in list:
         #cas a traiter
 print(PousseArchimede)
 
+#Fonction pour trouver a partir des deux points le point sur la droite qui a Z = 0
+def PointAuNiveauDeLeauSurLaDroite(A,B):
+    AB = [B[0]-A[0],B[1]-A[1],B[2]-A[2]]
+    t = float(-A[2]/AB[2])
+    PointEnZ0 = [A[0]+AB[0]*t, A[1]+AB[1]*t, A[2]+AB[2]*t]
+    return PointEnZ0
 
+#Test
+A=[1,3,2]
+B=[-5,0,4]
+C=PointAuNiveauDeLeauSurLaDroite(A,B)
+#print(C)
