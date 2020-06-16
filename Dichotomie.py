@@ -1,6 +1,6 @@
 def Dichotomie():
     ForcePoids = 21435434524543252 #constant
-    PousseeArchimede = 234392489 #variable
+    PousseeArchimede = 234392489 #variable, on appelle la fonction en boucle
     epsilon = 3
     PositionDuBateau = 0
     PositionPrecedente = 0
