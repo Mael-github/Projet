@@ -1,5 +1,7 @@
 def Dichotomie(): #on l'utilisera pas en fonction mais plus dans une boucle while
-    ForcePoids = 21435434524543252 #constant
+    PoidsduBateau = 8 #demander a l'utilisateur
+    Gravite = 9.80665 #demander a l'utilisateur
+    ForcePoids = PoidsduBateau*Gravite
     PousseeArchimede = 234392489 #variable, on appelle la fonction en boucle
     epsilon = 3
     PositionDuBateau = 0

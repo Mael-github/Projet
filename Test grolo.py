@@ -1,7 +1,46 @@
-from Ds import *
 from stl import mesh
 from mpl_toolkits import mplot3d
 from matplotlib import pyplot
+
+def dicho(FP,list):
+    zga = -5
+    zgb = 0
+    epsilon = 0.0001
+    zgmactuel = 0
+    while True:
+        acienzgm = zgmactuel
+        zgmactuel = 0.5 * (zga+zgb)
+        resultat,list = CalculPousseeArchimede(list,zgmactuel - acienzgm)
+        phi = resultat - FP
+        if abs(phi) < epsilon:
+            return zga
+        elif phi >= 0:
+            zga = zgmactuel
+        else:
+            zgb = zgmactuel
+
+#Produit Vectoriel en dimension 3
+def ProduitVectoriel3(A,B):
+    X = A[1]*B[2]-A[2]*B[1]
+    Y = A[2]*B[0]-A[0]*B[2]
+    Z = A[0]*B[1]-A[1]*B[0]
+    Resultat = []
+    Resultat.append(X)
+    Resultat.append(Y)
+    Resultat.append(Z)
+    return Resultat
+
+#Calcul du vecteur Ds
+def CalculDS(AB,AC):
+    Dsfois2 = ProduitVectoriel3(AB,AC)
+    X = Dsfois2[0]/2
+    Y = Dsfois2[1]/2
+    Z = Dsfois2[2]/2
+    Ds=[]
+    Ds.append(X)
+    Ds.append(Y)
+    Ds.append(Z)
+    return Ds
 
 #Calcul de la force de pression sur une facette imergée
 def CalculF(Coordonee):
@@ -24,21 +63,12 @@ def PointAuNiveauDeLeauSurLaDroite(A,B):
     PointEnZ0 = [A[0]+AB[0]*t, A[1]+AB[1]*t, A[2]+AB[2]*t]
     return PointEnZ0
 
-#Test
-#A=[1,3,2]
-#B=[-5,0,4]
-#C=PointAuNiveauDeLeauSurLaDroite(A,B)
-#print(C)
-#Permet de translater le bateau selon Z
-
 def TranslationSelonZ (choixtransla,list):
     for i in list:
         for y in i:
             y[2] = y[2] + choixtransla
 
-def CalculPousseeArchimede(Translation):
-    your_mesh = mesh.Mesh.from_file('Rectangular_HULL.stl')
-    list = your_mesh.vectors
+def CalculPousseeArchimede(list,Translation):
     PousseArchimede = [0,0,0]
     #On effectue un translation de X m
     TranslationSelonZ(Translation,list)
@@ -126,25 +156,11 @@ def CalculPousseeArchimede(Translation):
                 y=CalculF(DeuxiemeDecoupage)
                 for n in range(len(PousseArchimede)) :
                     PousseArchimede[n] = PousseArchimede[n] + x[n] + y[n]
-    return PousseArchimede
+    return PousseArchimede[2],list
 
-x=CalculPousseeArchimede(-0.5)
-print(x)
-PoidsduBateau = 4.1 #demander a l'utilisateur
-Gravite = 9.80665 #demander a l'utilisateur
-ForcePoids = PoidsduBateau*Gravite
-PositionDepart = -5 #demander a l'utilisateur
-PousseeArchimede = CalculPousseeArchimede(PositionDepart)
-epsilon = 3 #a definir
-PositionDuBateau = PositionDepart
-PositionEnDessousMax = -500000
-PositionAuDessusMin = 500000
-#while abs(PositionAuDessusMin - PositionEnDessousMax) > epsilon :
-#    if PousseeArchimede > ForcePoids :
-#        PositionDuBateau += 0,1  #ca doit pas etre comme ca mais c'est pour l'exemple
-#        if PositionEnDessousMax < PositionDuBateau : #Pour obtenir la position la plus proche en dessous de la position d'équilibre
-#            PositionEnDessousMax = PositionDuBateau
-#    else :
-#        PositionDuBateau -= 0,1 #pareil
-#        if PositionAuDessusMin > PositionDuBateau : #Pour obtenir la position la plus proche au dessus de la position d'équilibre
-#            PositionAuDessusMin = PositionDuBateau
+your_mesh = mesh.Mesh.from_file('Rectangular_HULL.stl')
+list = your_mesh.vectors
+poidsbateau = 4.1
+gravite = 9.81
+FA = poidsbateau*gravite
+print(dicho(FA,list))
