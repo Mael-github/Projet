@@ -164,3 +164,4 @@ poidsbateau = 4.1
 gravite = 9.81
 FA = poidsbateau*gravite
 print(dicho(FA,list))
+#Si c'est actualisé
